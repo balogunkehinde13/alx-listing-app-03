@@ -2,6 +2,7 @@
 import Image from "next/image";
 import apartmentImg from "@/public/assets/apartment.jpeg";
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export default function PropertyDetail({ property }: any) {
   const address = property.PropertyAddress || {};
 
