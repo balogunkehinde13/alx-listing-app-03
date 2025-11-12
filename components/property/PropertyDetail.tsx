@@ -1,79 +1,50 @@
-import React from "react";
-import { Star } from "lucide-react";
-import ReviewSection from "@/components/property/ReviewSection"; // adjust the import path if needed
+"use client";
 import Image from "next/image";
+import apartmentImg from "@/public/assets/apartment.jpeg";
 
-interface PropertyDetailProps {
-  property: {
-    id: string;
-    title: string;
-    description: string;
-    location: string;
-    price: number;
-    image: string;
-    rating?: number;
-    amenities?: string[];
-  };
-}
+export default function PropertyDetail({ property }: any) {
+  const address = property.PropertyAddress || {};
 
-const PropertyDetail: React.FC<PropertyDetailProps> = ({ property }) => {
   return (
-    <div className="max-w-5xl mx-auto py-10 px-6">
-      {/* Image */}
-      <div className="mb-6">
+    <div className="max-w-4xl mx-auto mt-10 bg-white shadow rounded-xl overflow-hidden">
+      <div className="relative w-full h-80">
         <Image
-          src={property.image}
-          alt={property.title}
-          width={400}
-          height={300}
-          className="w-full h-96 object-cover rounded-2xl shadow"
+          src={apartmentImg}
+          alt="Property image"
+          className="object-cover w-full h-full"
+          fill
         />
       </div>
 
-      {/* Title and Rating */}
-      <div className="flex justify-between items-center mb-2">
-        <h1 className="text-3xl font-bold">{property.title}</h1>
-        {property.rating && (
-          <div className="flex items-center text-yellow-500">
-            <Star className="w-5 h-5 fill-yellow-500" />
-            <span className="ml-1">{property.rating.toFixed(1)}</span>
-          </div>
-        )}
-      </div>
+      <div className="p-6 space-y-3">
+        <h1 className="text-2xl font-semibold">
+          {address.streetAddress || "Unnamed Property"}
+        </h1>
 
-      {/* Location */}
-      <p className="text-gray-600 mb-4">{property.location}</p>
+        <p className="text-gray-600">
+          {[address.city, address.state, address.zipcode].filter(Boolean).join(", ")}
+        </p>
 
-      {/* Price */}
-      <p className="text-xl font-semibold text-blue-600 mb-6">
-        ${property.price} / night
-      </p>
+        <p className="text-blue-600 text-xl font-bold">
+          ${property.Price?.toLocaleString()}
+        </p>
 
-      {/* Description */}
-      <div className="mb-8">
-        <h2 className="text-2xl font-semibold mb-2">About this property</h2>
-        <p className="text-gray-700 leading-relaxed">{property.description}</p>
-      </div>
-
-      {/* Amenities */}
-      {property.amenities && property.amenities.length > 0 && (
-        <div className="mb-8">
-          <h2 className="text-2xl font-semibold mb-2">Amenities</h2>
-          <ul className="list-disc list-inside text-gray-700">
-            {property.amenities.map((amenity, index) => (
-              <li key={index}>{amenity}</li>
-            ))}
-          </ul>
+        <div className="text-gray-700">
+          <p>🛏️ Bedrooms: {property.Bedrooms}</p>
+          <p>🛁 Bathrooms: {property.Bathrooms}</p>
+          <p>📐 Area: {property["Area(sqft)"]} sqft</p>
+          <p>🏗️ Built: {property.yearBuilt}</p>
         </div>
-      )}
 
-      {/* Reviews */}
-      <div>
-        <h2 className="text-2xl font-semibold mb-4">Guest Reviews</h2>
-        <ReviewSection propertyId={property.id} />
+        <a
+          href={property.PropertyZillowURL}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-blue-500 underline mt-3 inline-block"
+        >
+          View on Zillow
+        </a>
       </div>
     </div>
   );
-};
-
-export default PropertyDetail;
+}
