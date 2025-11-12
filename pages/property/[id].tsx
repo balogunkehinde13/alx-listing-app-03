@@ -33,5 +33,9 @@ export default function PropertyDetailPage() {
     return <p>Property not found</p>;
   }
 
-  return <PropertyDetail property={property} />;
+  return ( 
+    <div className="p-5">
+     <PropertyDetail property={property} />
+    </div>
+  );
 }

@@ -48,11 +48,10 @@ export default function BookingPage() {
   };
 
   return (
-    <div className="max-w-md mx-auto py-10">
+    <div className="max-w-md mx-auto py-10 px-5">
       <h1 className="text-2xl font-bold mb-6 text-center">
         Book Your Stay
       </h1>
-
       <form onSubmit={handleSubmit} className="space-y-4">
         <input
           name="firstName"

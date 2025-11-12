@@ -38,7 +38,7 @@ export default function Home() {
   if (loading) return <p>Loading...</p>;
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+    <div className="p-5 grid grid-cols-1 md:grid-cols-3 gap-4">
       {properties.map((property, index) => (
         <PropertyCard key={index} property={property} />
       ))}
